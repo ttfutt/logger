@@ -12,6 +12,9 @@ Logger::~Logger()
 
 void Logger::info(const char *format, ...)
 {
+    if(format == NULL)
+        return;
+    
     std::lock_guard<std::mutex> lock(m_mutex);
 
     std::string dateStr, timeStr;
@@ -28,6 +31,9 @@ void Logger::info(const char *format, ...)
 
 void Logger::warn(const char *format, ...)
 {
+    if(format == NULL)
+        return;
+    
     std::lock_guard<std::mutex> lock(m_mutex);
 
     std::string dateStr, timeStr;
@@ -44,6 +50,9 @@ void Logger::warn(const char *format, ...)
 
 void Logger::err(const char *format, ...)
 {
+    if(format == NULL)
+        return;
+    
     std::lock_guard<std::mutex> lock(m_mutex);
 
     std::string dateStr, timeStr;
@@ -60,12 +69,18 @@ void Logger::err(const char *format, ...)
 
 void Logger::logImp(const char *prifix, const char *logBuff, std::ofstream &os)
 {
+    if(prifix == NULL || logBuff == NULL)
+        return;
+    
     os << prifix << " " << logBuff << std::endl;
     os.flush();
 }
 
 void Logger::checkDateAndInitOS(const std::string &curDate, const char *logName, std::ofstream &os)
 {
+    if(logName == NULL)
+        return;
+    
     static std::string lastDate;
     static std::string lastLogPath;
     if(lastDate == curDate && lastLogPath == m_logPath)
@@ -113,6 +128,9 @@ void Logger::curDateTimeStr(std::string &dateStr, std::string &timeStr)
 
 void Logger::setLogPath(const char *logPath)
 {
+    if(logPath == NULL)
+        return;
+    
     m_logPath = logPath;
     closeAllOS();
 }
