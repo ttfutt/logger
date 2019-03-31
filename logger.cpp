@@ -60,7 +60,7 @@ void Logger::err(const char *format, ...)
 
 void Logger::logImp(const char *prifix, const char *logBuff, std::ofstream &os)
 {
-    os << prifix << " " << logBuff;
+    os << prifix << " " << logBuff << std::endl;
     os.flush();
 }
 
